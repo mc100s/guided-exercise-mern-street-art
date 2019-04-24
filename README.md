@@ -156,7 +156,7 @@ So now you can go to
 - http://localhost:5000/: The website based on client/build (that you can update with `$ (cd client && npm run build)`)
 - http://localhost:3000/: The last version of your React application that is calling your API with the base url "http://localhost:5000/api/"
 
-### Iteration 2 | Create the models and seed the database
+### Iteration 2 | Backend |  Create the models and seed the database
 
 For this part, we give you the code!
 
@@ -326,7 +326,64 @@ $ mongod
 
 **Check in your database if you see 2 user documents, 3 street art documents and 3 visit documents. You can use MongoDB Compass for this**
 
-![Imgur](https://i.imgur.com/o6FPYrD.png)
+![Imgur](https://i.imgur.com/47GAyyM.png)
+
+
+### Iteration 3 | Backend | `GET /api/street-arts`
+
+The goal of this iteration is to create a backend route `GET /api/street-arts` where we can access all street arts.
+
+First, update the file `server/app.js`
+
+```js
+// server/app.js
+
+// ...
+
+app.use('/api', require('./routes/index'))
+app.use('/api', require('./routes/auth'))
+app.use('/api/street-arts', require('./routes/street-arts')) // NEW LINE: take all the routes defined in './routes/street-arts' and prefix them by '/api/street-arts'
+
+// ...
+```
+
+Then, create a file `server/routes/street-arts.js` and write the necessary code for the route.
+
+```js
+// server/routes/street-arts.js
+const express = require('express');
+const router = express.Router();
+
+router.get('/', (req, res, next) => {
+  // TODO
+});
+
+module.exports = router;
+```
+
+
+When you are done, you can test with Postman `GET http://localhost:5000/api/street-arts`
+
+
+![Imgur](https://i.imgur.com/oSDgvgS.png)
+
+
+<!-- ### Iteration 4 | Backend | `GET /api/street-arts/:streetArtId` -->
+
+
+
+<!-- 
+POST /api/signup
+POST /api/login
+POST /api/logout
+GET /api/street-arts
+GET /api/street-arts/:streetArtId
+POST /api/street-arts
+PUT /api/street-arts/:streetArtId
+DELETE /api/street-arts/:streetArtId
+GET /api/my-visits
+POST /api/visits
+DELETE /api/visits/:visitId -->
 
 ## TODO
 - Create a demo
