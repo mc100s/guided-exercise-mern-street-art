@@ -368,7 +368,15 @@ When you are done, you can test with Postman `GET http://localhost:5000/api/stre
 ![Imgur](https://i.imgur.com/oSDgvgS.png)
 
 
-<!-- ### Iteration 4 | Backend | `GET /api/street-arts/:streetArtId` -->
+### Iteration 4 | Backend | `GET /api/street-arts/:streetArtId`
+
+For this iteration, we have to do something very similar and create to route `GET /api/street-arts/:streetArtId`.
+
+You can create it directly in the file `server/routes/street-arts.js`.
+
+
+To make sure your route is working, you should test it with Postman!
+![Imgur](https://i.imgur.com/V1tMjG1.png)
 
 
 

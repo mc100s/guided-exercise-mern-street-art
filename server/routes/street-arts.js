@@ -9,4 +9,11 @@ router.get('/', (req, res, next) => {
     })
 });
 
+router.get('/:streetArtId', (req, res, next) => {
+  StreetArt.findById(req.params.streetArtId)
+    .then(streetArt => {
+      res.json(streetArt)
+    })
+});
+
 module.exports = router;
