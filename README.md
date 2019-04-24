@@ -32,6 +32,8 @@ Field | Type
 _id | (Automaticaly generated)
 email | String
 password | String
+createdAt | Date (Automaticaly generated)
+updatedAt | Date (Automaticaly generated)
 
 #### `StreetArt`
 Field | Type
@@ -41,6 +43,8 @@ pictureUrl | String
 location | (GeoJSON)
 -> type | `"Point"`
 -> coordinates | [Number]
+createdAt | Date (Automaticaly generated)
+updatedAt | Date (Automaticaly generated)
 
 #### `Visit`
 Field | Type
@@ -48,6 +52,7 @@ Field | Type
 _id | (Automaticaly generated)
 _user | Schema.Types.ObjectId
 _streetArt | Schema.Types.ObjectId
+createdAt | Date (Automaticaly generated at creation)
 
 
 ### Backend routes
@@ -151,7 +156,185 @@ So now you can go to
 - http://localhost:5000/: The website based on client/build (that you can update with `$ (cd client && npm run build)`)
 - http://localhost:3000/: The last version of your React application that is calling your API with the base url "http://localhost:5000/api/"
 
+### Iteration 2 | Create the models and seed the database
 
+For this part, we give you the code!
+
+**Update the file `server/models/User.js`**
+```js
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const schema = new Schema({
+  email: String,
+  password: String
+}, {
+    timestamps: true
+  });
+
+module.exports = mongoose.model('User', schema);
+```
+
+**Create a file `server/models/StreetArt.js`**
+```js
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const schema = new Schema({
+  pictureUrl: String,
+  location: {
+    type: { type: String, enum: ["Point"], default: "Point" },
+    coordinates: [Number]
+  },
+}, {
+    timestamps: true
+  });
+
+module.exports = mongoose.model('StreetArt', schema);
+```
+
+**Create a file `server/models/Visit.js`**
+```js
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const schema = new Schema({
+  _user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  _streetArt: {
+    type: Schema.Types.ObjectId,
+    ref: 'StreetArt'
+  },
+}, {
+    timestamps: {
+      createdAt: 'createdAt'
+    }
+  });
+
+module.exports = mongoose.model('Visit', schema);
+```
+
+**Update the file `server/bin/seeds.js`**
+```js
+const path = require('path')
+require('dotenv').config({ path: path.join(__dirname, '../.env') })
+
+// Seeds file that remove all users and create 2 new users
+
+// To execute this seed, run from the root of the project
+// $ node bin/seeds.js
+
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const User = require("../models/User");
+const StreetArt = require("../models/StreetArt");
+const Visit = require("../models/Visit");
+
+const bcryptSalt = 10;
+
+require('../configs/database')
+
+let userDocs = [
+  new User({
+    email: "alice@gmail.com",
+    password: bcrypt.hashSync("alice", bcrypt.genSaltSync(bcryptSalt)),
+  }),
+  new User({
+    email: "bob@gmail.com",
+    password: bcrypt.hashSync("bob", bcrypt.genSaltSync(bcryptSalt)),
+  })
+]
+
+let streetArtDocs = [
+  new StreetArt({
+    pictureUrl: "https://lh5.googleusercontent.com/p/AF1QipNqlBgeyUgKqGUH_oYogtxRQ0KPTtLAgiCXEUon",
+    location: {
+      type: "Point",
+      coordinates: [ -9.209744,38.696060]
+    },
+  }),
+  new StreetArt({
+    pictureUrl: "https://lh5.googleusercontent.com/p/AF1QipO_kynLt94FYjYKmstOul5mZ-fnXyb6O_2Kr7SL",
+    location: {
+      type: "Point",
+      coordinates: [-9.136864,38.720205]
+    },
+  }),
+  new StreetArt({
+    pictureUrl: "https://lh5.googleusercontent.com/p/AF1QipONkHmWhUjFjelUXxlekBg1Aq0ccW20yXxBRxxQ",
+    location: {
+      type: "Point",
+      coordinates: [13.451661,52.507734]
+    },
+  })
+]
+
+let visitDocs = [
+  new Visit({
+    _user: userDocs[0]._id,
+    _streetArt: streetArtDocs[0]._id,
+  }),
+  new Visit({
+    _user: userDocs[0]._id,
+    _streetArt: streetArtDocs[1]._id,
+  }),
+  new Visit({
+    _user: userDocs[1]._id,
+    _streetArt: streetArtDocs[0]._id,
+  })
+]
+
+
+Promise.all([
+  User.deleteMany(),
+  StreetArt.deleteMany(),
+  Visit.deleteMany(),
+])
+  .then(() => {
+    console.log('All users, street arts and visits have been deleted')
+
+    return Promise.all([
+      User.create(userDocs),
+      StreetArt.create(streetArtDocs),
+      Visit.create(visitDocs),
+    ])
+  })
+  .then(() => {
+    console.log(`${userDocs.length} users created`)
+    console.log(`${streetArtDocs.length} street arts created`)
+    console.log(`${visitDocs.length} visits created`)
+    mongoose.disconnect()
+  })
+  .catch(err => {
+    mongoose.disconnect()
+    throw err
+  })
+```
+
+**Execute the seed**
+```sh
+$ node server/bin/seeds.js
+```
+
+If the command is not working, you probably have to run the following command in a terminal (without killing it)
+
+```sh
+$ mongod
+```
+
+**Check in your database if you see 2 user documents, 3 street art documents and 3 visit documents. You can use MongoDB Compass for this**
+
+![Imgur](https://i.imgur.com/7YJCkYV.png)
+
+---
+
+![Imgur](https://i.imgur.com/4ibEkyY.png)
+
+---
+
+![Imgur](https://i.imgur.com/UCG2rDY.png)
 
 ## TODO
 - Create a demo
