@@ -326,15 +326,7 @@ $ mongod
 
 **Check in your database if you see 2 user documents, 3 street art documents and 3 visit documents. You can use MongoDB Compass for this**
 
-![Imgur](https://i.imgur.com/7YJCkYV.png)
-
----
-
-![Imgur](https://i.imgur.com/4ibEkyY.png)
-
----
-
-![Imgur](https://i.imgur.com/UCG2rDY.png)
+![Imgur](https://i.imgur.com/o6FPYrD.png)
 
 ## TODO
 - Create a demo
