@@ -1,5 +1,6 @@
 const express = require('express');
 const StreetArt = require('../models/StreetArt');
+const uploader = require('../configs/cloudinary');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
@@ -14,6 +15,23 @@ router.get('/:streetArtId', (req, res, next) => {
     .then(streetArt => {
       res.json(streetArt)
     })
+});
+
+// `uploader.single('picture')` parses the data send with the name `picture` and save information inside `req.file`
+router.post('/', uploader.single('picture'), (req, res, next) => {
+  let { lat, lng } = req.body
+  let pictureUrl = req.file.url
+  StreetArt.create({
+    pictureUrl,
+    location: {
+      type: 'Point',
+      coordinates: [lng,lat]
+    }
+  })
+    .then(streetArt => {
+      res.json(streetArt)
+    })
+    .catch(next)
 });
 
 module.exports = router;

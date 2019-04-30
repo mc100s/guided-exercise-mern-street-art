@@ -65,7 +65,7 @@ Route | Type of protection | Description
 `GET /api/street-arts` | Ø | Get all street arts
 `GET /api/street-arts/:streetArtId` | Ø | Get the detail of one street art
 `POST /api/street-arts` | Must be connected | Add a street art
-`PUT /api/street-arts/:streetArtId` | Must be the owner | Edit one street art
+<!-- `PUT /api/street-arts/:streetArtId` | Must be the owner | Edit one street art -->
 `DELETE /api/street-arts/:streetArtId` | Must be the owner | Delete one street art
 `GET /api/my-visits` | Must be connected | Get the visits of the connected user
 `POST /api/visits` | Must be connected | Add a visit
@@ -108,9 +108,6 @@ Create a file `server/.env`, with for example the following values;
 PORT=5000
 SESSION_SECRET=anyValue
 MONGODB_URI=mongodb://localhost/mern-street-art
-CLOUDINARY_CLOUD_NAME=......
-CLOUDINARY_API_KEY=......
-CLOUDINARY_API_SECRET=......
 ```
 
 **To install all the packages**
@@ -379,6 +376,80 @@ To make sure your route is working, you should test it with Postman!
 ![Imgur](https://i.imgur.com/V1tMjG1.png)
 
 
+### Iteration 5 | Backend | `POST /api/street-arts`
+
+In the route `POST /api/street-arts`, we will create a new street art by send 3 informations:
+- `lat`: The latitude
+- `lng`: The longitude
+- `picture`: A file with the picture
+
+To save the file, we will rely on Cloudinary.
+
+For this, you have to install some packages:
+```sh
+$ cd server
+$ npm install cloudinary multer-storage-cloudinary multer
+```
+
+Then, you have to go on Cloudinary and find your credentials on the main page: https://cloudinary.com/console. You have to past the crendentials in `server/.env` file.
+
+```
+PORT=5000
+SESSION_SECRET=anyValue
+MONGODB_URI=mongodb://localhost/mern-street-art
+CLOUDINARY_NAME=......
+CLOUDINARY_KEY=......
+CLOUDINARY_SECRET=......
+```
+
+Then, you can create a file `server/configs/cloudinary.js`
+
+```js
+// server/configs/cloudinary.js
+const cloudinary = require('cloudinary');
+const cloudinaryStorage = require('multer-storage-cloudinary')
+const multer = require('multer');
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET
+});
+
+const storage = cloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: 'street-art-pictures',
+  allowedFormats: ['jpg', 'png'],
+  filename: (req, file, cb) => {
+    cb(null, file.originalname); // The file on cloudinary would have the same name as the original file name
+  }
+});
+
+const uploader = multer({ storage });
+module.exports = uploader;
+```
+
+Then, you have to create a route in `server/routes/street-arts.js`
+```js
+// Route to create a street art
+// `uploader.single('picture')` parses the data send with the name `picture` and save information inside `req.file`
+router.post('/', uploader.single('picture'), (req, res, next) => {
+  let { lat, lng } = req.body
+  let pictureUrl = req.file.url
+  
+  // TODO: continue
+  // ...
+});
+```
+
+When you are done, you can try with Postman. You will have to send the data with "`Body` > `form-data`" and choose type "`File`" for the `picture`.
+
+![](https://i.imgur.com/aqwobhl.png)
+
+After doing the request in Postman, you should see a new document with the information you wrote!
+
+
+![Imgur](https://i.imgur.com/gVhtsxK.png)
 
 <!-- 
 POST /api/signup
@@ -387,7 +458,6 @@ POST /api/logout
 GET /api/street-arts
 GET /api/street-arts/:streetArtId
 POST /api/street-arts
-PUT /api/street-arts/:streetArtId
 DELETE /api/street-arts/:streetArtId
 GET /api/my-visits
 POST /api/visits
