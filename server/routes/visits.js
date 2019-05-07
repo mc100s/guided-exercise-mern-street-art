@@ -12,4 +12,14 @@ router.get('/my-visits', isLoggedIn, (req, res, next) => {
     })
 });
 
+router.post('/visits', isLoggedIn, (req, res, next) => {
+  Visit.create({ 
+    _user: req.user._id, 
+    _streetArt: req.body._streetArt 
+  })
+    .then(visit => {
+      res.json(visit)
+    })
+});
+
 module.exports = router;

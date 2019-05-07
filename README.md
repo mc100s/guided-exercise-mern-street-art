@@ -489,6 +489,17 @@ Now, it's time to test with Postman. Be careful, you need to be connected to tes
 **`GET /api/my-vistits`**: to get all the visits with the information of the street-arts. Make sure you only have the visits of the connected user.
 ![Imgur](https://i.imgur.com/VRnit8T.png)
 
+
+### Iteration 7 | Backend | `POST /api/visits`
+
+Create a route `POST /api/visits` (with a `_streetArt` field) that creates a new visit for the connected user.
+
+This is what you should see with Postman when you are done.
+![Imgur](https://i.imgur.com/eocXrj2.png)
+
+
+
+
 <!-- 
 POST /api/signup
 POST /api/login
