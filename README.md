@@ -68,8 +68,6 @@ Route | Type of protection | Description
 `GET /api/my-visits` | Must be connected | Get the visits of the connected user
 `POST /api/visits` | Must be connected | Add a visit
 `DELETE /api/visits/:visitId` | Must be the owner | Delete a visit
-<!-- `DELETE /api/street-arts/:streetArtId` | Must be the owner | Delete one street art -->
-<!-- `PUT /api/street-arts/:streetArtId` | Must be the owner | Edit one street art -->
 
 
 ## Iterations
@@ -79,10 +77,9 @@ Route | Type of protection | Description
 - Create a seed file
 - Create the backend routes
 - Include Bootstrap in the project and customise it
-- Create a page to create a street art
-- Create a page to see all street arts
-- Create a page to edit a street art
-- ...
+- Create a page to see all street arts in a list
+- Create a page to see all street arts in a map
+- Create a page to add a new street art
 - Deploy it
 
 ### Iteration 1 | Initialise with the MERN boilerplate
@@ -506,6 +503,35 @@ This is what you should see with Postman when you are done.
 ![Imgur](https://i.imgur.com/fnTtbFy.png)
 
 
+### Iteration 9 | Frontend | Add of Bootstrap with Reactstrap
+
+Now it's time to start the front-end part 🔥
+
+In this iteration, we will just add [Bootstrap](https://getbootstrap.com) with [Reactstrap](http://reactstrap.github.io).
+
+For this, you have to install 2 packages:
+```sh
+$ cd client
+$ npm install bootstrap reactstrap
+``` 
+
+Then, add the following line in your `client/src/index.scss`:
+```scss
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+```
+
+Then you can create a navbar in the file `client/src/MainNavbar.jsx`.
+
+The Navbar contains the following links:
+- `/` (logo on the left)
+- `/list`
+- `/map`
+- `/new-street-art`
+- `/signup`
+- `/login`
+
+
+![Imgur](https://i.imgur.com/NHPUi5Y.png)
 
 <!-- 
 ## TODO
