@@ -503,7 +503,7 @@ This is what you should see with Postman when you are done.
 ![Imgur](https://i.imgur.com/fnTtbFy.png)
 
 
-### Iteration 9 | Frontend | Add of Bootstrap with Reactstrap
+### Iteration 9 | Frontend | Add of Bootstrap + Reactstrap + `MainNavbar` 
 
 Now it's time to start the front-end part 🔥
 
@@ -532,6 +532,41 @@ The Navbar contains the following links:
 
 
 ![Imgur](https://i.imgur.com/NHPUi5Y.png)
+
+
+### Iteration 10 | Frontend | Simple page `List`
+
+The goal of this iteration is to create a simple page "/list".
+
+First, in `client/src/api.js`, you have to create a method `getStreetArts`
+```js
+// client/src/api.js
+// ...
+
+
+  getStreetArts() {
+    return service
+      .get('/street-arts')
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+```
+
+
+Then, in `client/src/components/App.jsx`, add a `<Route />` for a `List` component.
+
+
+Finally, you have to create the `List` component in `client/src/components/pages/List.jsx`. It should display a table with all street arts from the backend, thanks to `api.getStreetArts()`.
+
+Your table will have 3 columns at this stage:
+- A small version of the picture
+- The coordinates with a link to Google Maps. Example of a link: https://www.google.com/maps/dir//38.69606,-9.209744/@38.69606,-9.209744,15z
+- A button link to the future detail page. Example of a link: http://localhost:3000/street-art-detail/5cc046767f07704e3d51c64f
+
+
+You can preview the page here: 
+
+![Imgur](https://i.imgur.com/m6J0OOb.png)
 
 <!-- 
 ## TODO

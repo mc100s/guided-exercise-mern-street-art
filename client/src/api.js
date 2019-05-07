@@ -62,10 +62,10 @@ export default {
   },
 
   // This is an example on how to use this method in a different file
-  // api.getCountries().then(countries => { /* ... */ })
-  getCountries() {
+  // api.getStreetArts().then(streetArts => { /* ... */ })
+  getStreetArts() {
     return service
-      .get('/countries')
+      .get('/street-arts')
       .then(res => res.data)
       .catch(errHandler)
   },

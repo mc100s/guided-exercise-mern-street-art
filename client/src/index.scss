@@ -99,3 +99,18 @@ body {
     color: $primary;
   }
 }
+
+
+.street-art-list {
+
+  td {
+    vertical-align: middle;
+    padding: 4px 12px;
+  }
+
+  img {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+  }
+}
