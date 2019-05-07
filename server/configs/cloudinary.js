@@ -8,13 +8,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET
 });
 
-console.log("!!!!!!!!!", {
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_KEY,
-  api_secret: process.env.CLOUDINARY_SECRET
-})
-
-
 const storage = cloudinaryStorage({
   cloudinary: cloudinary,
   folder: 'street-art-pictures',

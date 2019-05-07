@@ -64,12 +64,12 @@ Route | Type of protection | Description
 `POST /api/logout` | Must be connected | Log out the user
 `GET /api/street-arts` | Ø | Get all street arts
 `GET /api/street-arts/:streetArtId` | Ø | Get the detail of one street art
-`POST /api/street-arts` | Must be connected | Add a street art
-<!-- `PUT /api/street-arts/:streetArtId` | Must be the owner | Edit one street art -->
-`DELETE /api/street-arts/:streetArtId` | Must be the owner | Delete one street art
+`POST /api/street-arts` | Ø | Add a street art
 `GET /api/my-visits` | Must be connected | Get the visits of the connected user
 `POST /api/visits` | Must be connected | Add a visit
 `DELETE /api/visits/:visitId` | Must be the owner | Delete a visit
+<!-- `DELETE /api/street-arts/:streetArtId` | Must be the owner | Delete one street art -->
+<!-- `PUT /api/street-arts/:streetArtId` | Must be the owner | Edit one street art -->
 
 
 ## Iterations
@@ -451,6 +451,44 @@ After doing the request in Postman, you should see a new document with the infor
 
 ![Imgur](https://i.imgur.com/gVhtsxK.png)
 
+
+
+### Iteration 6 | Backend | `GET /api/my-visits`
+
+The goal of the route `GET /api/my-visits` is to display all the visits of the connected user, with informations of the street-art.
+
+First, you have to create a file `server/routes/visits.js`
+```js
+const express = require('express');
+const StreetArt = require('../models/StreetArt');
+const Visit = require('../models/Visit');
+const { isLoggedIn } = require('../middlewares')
+const router = express.Router();
+
+// Route protected for logged in user
+router.get('/my-visits', isLoggedIn, (req, res, next) => {
+  // TODO: continue
+  // You should use `.populate`
+});
+
+module.exports = router;
+```
+
+
+Then, add the following line in `server/app.js`: 
+```js
+app.use('/api', require('./routes/visits'))
+```
+
+Now, it's time to test with Postman. Be careful, you need to be connected to test.
+
+**`POST /api/login`**: to connect the user
+![Imgur](https://i.imgur.com/26pPitg.png)
+
+
+**`GET /api/my-vistits`**: to get all the visits with the information of the street-arts. Make sure you only have the visits of the connected user.
+![Imgur](https://i.imgur.com/VRnit8T.png)
+
 <!-- 
 POST /api/signup
 POST /api/login
@@ -463,6 +501,10 @@ GET /api/my-visits
 POST /api/visits
 DELETE /api/visits/:visitId -->
 
+
+<!-- 
 ## TODO
 - Create a demo
 - Create tests with Cypress
+
+-->
