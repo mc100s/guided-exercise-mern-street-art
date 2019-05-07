@@ -22,4 +22,23 @@ router.post('/visits', isLoggedIn, (req, res, next) => {
     })
 });
 
+router.delete('/visits/:visitId', isLoggedIn, (req, res, next) => {
+  Visit.findOneAndDelete({ 
+    _id: req.params.visitId,
+    _user: req.user._id
+  })
+    .then(visit => {
+      if (visit) {
+        res.json({
+          message: 'The visit was successfully deleted',
+        })
+      }
+      else {
+        res.json({
+          message: `There is no visit with the id "${req.params.visitId} or you are not the owner"`,
+        })
+      }
+    })
+});
+
 module.exports = router;

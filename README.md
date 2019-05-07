@@ -498,24 +498,17 @@ This is what you should see with Postman when you are done.
 ![Imgur](https://i.imgur.com/eocXrj2.png)
 
 
+### Iteration 8 | Backend | `DELETE /api/visits/:visitId`
 
+Create a route `DELETE /api/visits/:visitId` that deletes the specified visit. Be careful, only the owner of the visit can delete his visit.
 
-<!-- 
-POST /api/signup
-POST /api/login
-POST /api/logout
-GET /api/street-arts
-GET /api/street-arts/:streetArtId
-POST /api/street-arts
-DELETE /api/street-arts/:streetArtId
-GET /api/my-visits
-POST /api/visits
-DELETE /api/visits/:visitId -->
+This is what you should see with Postman when you are done.
+![Imgur](https://i.imgur.com/fnTtbFy.png)
+
 
 
 <!-- 
 ## TODO
 - Create a demo
-- Create tests with Cypress
-
 -->
+
