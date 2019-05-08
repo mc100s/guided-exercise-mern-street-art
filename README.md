@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this project, we will do a complete fullstack application where users go create/read/update/delete street arts.
+In this project, you will build a complete fullstack application where users go create/read/update/delete street arts.
 
 A demo is available here: WIP
 
@@ -31,7 +31,7 @@ To create the wireframes, we have followed some rules (feel free to adapt them f
 
 ### Models
 
-For this project, we will use 3 models:
+For this project, you will use 3 models:
 - `User`: To save basic information about the user (email and password)
 - `StreetArt`: To save a picture and the location of a street art
 - `Visit`: To save the visit of a specific user with a specific street art
@@ -335,7 +335,7 @@ $ mongod
 
 ### Iteration 3 | Backend | `GET /api/street-arts`
 
-The goal of this iteration is to create a backend route `GET /api/street-arts` where we can access all street arts.
+The goal of this iteration is to create a backend route `GET /api/street-arts` where you can access all street arts.
 
 First, update the file `server/app.js`
 
@@ -374,7 +374,7 @@ When you are done, you can test with Postman `GET http://localhost:5000/api/stre
 
 ### Iteration 4 | Backend | `GET /api/street-arts/:streetArtId`
 
-For this iteration, we have to do something very similar and create to route `GET /api/street-arts/:streetArtId`.
+For this iteration, you have to do something very similar and create to route `GET /api/street-arts/:streetArtId`.
 
 You can create it directly in the file `server/routes/street-arts.js`.
 
@@ -385,12 +385,12 @@ To make sure your route is working, you should test it with Postman!
 
 ### Iteration 5 | Backend | `POST /api/street-arts`
 
-In the route `POST /api/street-arts`, we will create a new street art by send 3 informations:
+In the route `POST /api/street-arts`, you will create a new street art by send 3 informations:
 - `lat`: The latitude
 - `lng`: The longitude
 - `picture`: A file with the picture
 
-To save the file, we will rely on Cloudinary.
+To save the file, you will rely on Cloudinary.
 
 For this, you have to install some packages:
 ```sh
@@ -462,13 +462,13 @@ After doing the request in Postman, you should see a new document with the infor
 
 ### Iteration 6 | Backend | Fix the signup and login
 
-If we inspect the project, inside `server/routes/auth.js` we already have 2 routes for signup (`POST /api/signup`) and login (`POST /api/login`). The problem with them is that they rely on 2 fields, "username"/"password", instead of "email"/"password".
+If you inspect the project, inside `server/routes/auth.js` you already have 2 routes for signup (`POST /api/signup`) and login (`POST /api/login`). The problem with them is that they rely on 2 fields, "username"/"password", instead of "email"/"password".
 
 Let's change this!
 
 Go to `server/routes/auth.js` and find and replace all `username` by `email`.
 
-To make the code cleaner, in the signup route, you can also remove everything related `name` (we don't need the name of the user in this project).
+To make the code cleaner, in the signup route, you can also remove everything related `name` (you don't need the name of the user in this project).
 
 ```js
 // server/routes/auth.js
@@ -549,7 +549,7 @@ This is what you should see with Postman when you are done.
 
 Now it's time to start the front-end part 🔥
 
-In this iteration, we will just add [Bootstrap](https://getbootstrap.com) with [Reactstrap](http://reactstrap.github.io).
+In this iteration, you will just add [Bootstrap](https://getbootstrap.com) with [Reactstrap](http://reactstrap.github.io).
 
 For this, you have to install 2 packages:
 ```sh
@@ -637,7 +637,7 @@ You can preview the page here:
 
 ### Iteration 13 | Frontend | Add a map in `StreetArtDetail`
 
-We are going to include a map from Mapbox for this iteration. For this, you need to create an account on [Mapbox](https://mapbox.com) and then follow the next instructions.
+You are going to include a map from Mapbox for this iteration. For this, you need to create an account on [Mapbox](https://mapbox.com) and then follow the next instructions.
 
 ```sh
 $ cd client
@@ -712,8 +712,6 @@ You can preview the page here:
 
 
 ### Next iterations
-- Iteration x | Frontend | Add a map in `StreetArtDetail`
-- Iteration x | Frontend | Page component `NewStreetArt`
 - Iteration x | Frontend | Simple page component `Map`
 - Iteration x | Frontend | Change of signup and login
 - Iteration x | Frontend | Add of visits in `List`
