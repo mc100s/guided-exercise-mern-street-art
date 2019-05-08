@@ -450,7 +450,39 @@ After doing the request in Postman, you should see a new document with the infor
 
 
 
-### Iteration 6 | Backend | `GET /api/my-visits`
+### Iteration 6 | Backend | Fix the signup and login
+
+If we inspect the project, inside `server/routes/auth.js` we already have 2 routes for signup (`POST /api/signup`) and login (`POST /api/login`). The problem with them is that they rely on 2 fields, "username"/"password", instead of "email"/"password".
+
+Let's change this!
+
+Go to `server/routes/auth.js` and find and replace all `username` by `email`.
+
+To make the code cleaner, in the signup route, you can also remove everything related `name` (we don't need the name of the user in this project).
+
+```js
+// server/routes/auth.js
+
+// Around line 11
+const { email, password } = req.body
+
+// Around line 24
+const newUser = new User({ email, password: hashPass })
+```
+
+Now it's time to test!
+
+**`POST /api/signup` with Postman**
+![Imgur](https://i.imgur.com/BUsmmzx.png)
+
+**`POST /api/login` with Postman**
+![Imgur](https://i.imgur.com/2G0tuLk.png)
+
+**Verification with MongoDB Compass**
+![](https://i.imgur.com/q04ki4z.png)
+
+
+### Iteration 7 | Backend | `GET /api/my-visits`
 
 The goal of the route `GET /api/my-visits` is to display all the visits of the connected user, with informations of the street-art.
 
@@ -487,7 +519,7 @@ Now, it's time to test with Postman. Be careful, you need to be connected to tes
 ![Imgur](https://i.imgur.com/VRnit8T.png)
 
 
-### Iteration 7 | Backend | `POST /api/visits`
+### Iteration 8 | Backend | `POST /api/visits`
 
 Create a route `POST /api/visits` (with a `_streetArt` field) that creates a new visit for the connected user.
 
@@ -495,7 +527,7 @@ This is what you should see with Postman when you are done.
 ![Imgur](https://i.imgur.com/eocXrj2.png)
 
 
-### Iteration 8 | Backend | `DELETE /api/visits/:visitId`
+### Iteration 9 | Backend | `DELETE /api/visits/:visitId`
 
 Create a route `DELETE /api/visits/:visitId` that deletes the specified visit. Be careful, only the owner of the visit can delete his visit.
 
@@ -503,7 +535,7 @@ This is what you should see with Postman when you are done.
 ![Imgur](https://i.imgur.com/fnTtbFy.png)
 
 
-### Iteration 9 | Frontend | Add of Bootstrap + Reactstrap + `MainNavbar` 
+### Iteration 10 | Frontend | Add of Bootstrap + Reactstrap + `MainNavbar` 
 
 Now it's time to start the front-end part 🔥
 
@@ -534,7 +566,7 @@ The Navbar contains the following links:
 ![Imgur](https://i.imgur.com/NHPUi5Y.png)
 
 
-### Iteration 10 | Frontend | Simple page `List`
+### Iteration 11 | Frontend | Simple page `List`
 
 The goal of this iteration is to create a simple page "/list".
 
