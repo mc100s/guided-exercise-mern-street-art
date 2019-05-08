@@ -19,6 +19,16 @@ This project will rely on the following technologies:
 
 ## Overview
 
+### Wireframes
+
+To create the wireframes, we have followed some rules (feel free to adapt them for your own projects)
+- Mobile first
+- 1 screen = 1 wireframe
+- Red = pages
+- Blue = extra part when connected
+
+![](./assets/wireframes.png)
+
 ### Models
 
 For this project, we will use 3 models:
