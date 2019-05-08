@@ -70,6 +70,13 @@ export default {
       .catch(errHandler)
   },
 
+  getStreetArt(streetArtId) {
+    return service
+      .get('/street-arts/'+streetArtId)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
   addCountry(body) {
     return service
       .post('/countries', body)

@@ -114,3 +114,22 @@ body {
     object-fit: cover;
   }
 }
+
+.street-art-overview {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.street-art-overview.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  max-height: none;
+  background-color: black;
+}

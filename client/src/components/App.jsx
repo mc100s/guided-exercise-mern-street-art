@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import List from './pages/List';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import StreetArtDetail from './pages/StreetArtDetail'
 import api from '../api';
 import MainNavbar from './MainNavbar'
 
@@ -26,6 +27,7 @@ export default class App extends Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/list" component={List} />
+          <Route path="/street-art-detail/:streetArtId" component={StreetArtDetail} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route render={() => <h2>404</h2>} />

@@ -580,11 +580,10 @@ The Navbar contains the following links:
 
 The goal of this iteration is to create a simple page "/list".
 
-First, in `client/src/api.js`, you have to create a method `getStreetArts`
+First, in `client/src/api.js`, you have to create a method `getStreetArts`:
 ```js
 // client/src/api.js
 // ...
-
 
   getStreetArts() {
     return service
@@ -611,8 +610,32 @@ You can preview the page here:
 ![Imgur](https://i.imgur.com/m6J0OOb.png)
 
 
+### Iteration 12 | Frontend | Simple page component `StreetArtDetail`
+
+The goal of this iteration is to create a simple page "/street-art-detail/:streetArtId".
+
+First, in `client/src/api.js`, you have to create a method `getStreetArt`:
+```js
+// client/src/api.js
+// ...
+
+  getStreetArt(streetArtId) {
+    // TODO
+  },
+```
+
+Then, in `client/src/components/App.jsx`, add a `<Route />` for a `StreetArtDetail` component.
+
+Finally, you have to create the `StreetArtDetail` component in `client/src/components/pages/StreetArtDetail.jsx`. You should display the picture and the coordinates of the street art.
+
+You can preview the page here: 
+![Imgur](https://i.imgur.com/ySZfLm1.jpg)
+
+
+**BONUS**: Display the picture fullscreen when the user clicks on the picture and go back to the original view when the user clicks again.
+
+
 ### Next iterations
-- Iteration x | Frontend | Simple page component `StreetArtDetail`
 - Iteration x | Frontend | Add a map in `StreetArtDetail`
 - Iteration x | Frontend | Page component `NewStreetArt`
 - Iteration x | Frontend | Simple page component `Map`
