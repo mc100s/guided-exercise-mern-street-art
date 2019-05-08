@@ -539,10 +539,14 @@ This is what you should see with Postman when you are done.
 
 ### Iteration 9 | Backend | `DELETE /api/visits/:visitId`
 
-Create a route `DELETE /api/visits/:visitId` that deletes the specified visit. Be careful, only the owner of the visit can delete his visit.
+Create a route `DELETE /api/visits/:visitId` that deletes the specified visit. 
+
+⚠️ Be careful, only the owner of the visit can delete his visit.
 
 This is what you should see with Postman when you are done.
 ![Imgur](https://i.imgur.com/fnTtbFy.png)
+
+**NOTE**: We recommand you to make sure that a connected user can't delete the visit of another user.
 
 
 ### Iteration 10 | Frontend | Add of Bootstrap + Reactstrap + `MainNavbar` 
@@ -712,9 +716,127 @@ You can preview the page here:
 ### Iteration 14 | Frontend | Page component `NewStreetArt`
 
 For this iteration, you need to:
-- Create a method `addStreetArt(body)` in `client/src/api.js`
-- Create a component `NewStreetArt` saved in `client/src/components/pages/NewStreetArt.jsx`
+- Create a method `addStreetArt(uploadData)` in `client/src/api.js`
 - Update `client/src/components/App.jsx` to include a new `<Route />`
+- Create a component `NewStreetArt` saved in `client/src/components/pages/NewStreetArt.jsx`
+
+
+**`client/src/api.js`**
+```js
+// ... 
+addStreetArt(uploadData) {
+  return service
+    .post('/street-arts', uploadData)
+    .then(res => res.data)
+    .catch(errHandler)
+},
+// ... 
+```
+
+**`client/src/components/pages/NewStreetArt.jsx`**
+```js
+import React, { Component } from 'react'
+import {
+  Button,
+  Col,
+  Container,
+  Input,
+  Label,
+  Row
+} from 'reactstrap'
+import api from '../../api'
+
+export default class NewStreetArt extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      lat: '',
+      lng: '',
+      picture: null
+    }
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleFileChange = this.handleFileChange.bind(this)
+    this.addStreetArtAndRedirectToDetailPage = this.addStreetArtAndRedirectToDetailPage.bind(this)
+    this.getCurrentCoordinates = this.getCurrentCoordinates.bind(this)
+  }
+  getCurrentCoordinates() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        console.log("The current coords are", position.coords)
+        this.setState({
+          lng: "TODO", // TODO: write the correct value
+          lat: "TODO" // TODO: write the correct value
+        })
+      })
+    }
+  }
+  handleInputChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+  handleFileChange(e) {
+    console.log("The file added by the use is: ", e.target.files[0])
+    this.setState({
+      picture: e.target.files[0]
+    })
+  }
+  addStreetArtAndRedirectToDetailPage(e) {
+    // To send information with "form-data" (like in Postman)
+    const uploadData = new FormData()
+    uploadData.append("lng", this.state.lng)
+    uploadData.append("lat", this.state.lat)
+    uploadData.append("picture", this.state.picture)
+
+    api.addStreetArt(uploadData)
+      .then(createdStreetArt => {
+        // Redirect the user to another page
+        this.props.history.push('/todo') // TODO
+      })
+      .catch(err => {
+        console.log("Error while adding the street art: ", err)
+      })
+  }
+  render() {
+    return (
+      <Container className="NewStreetArt">
+        <h1>New Street Art</h1>
+
+        <Button className="my-4" color="danger" block outline onClick={this.getCurrentCoordinates}>
+          Get Current Coordinates
+        </Button>
+
+        <Row className="my-4">
+          <Col sm={3}>
+            <Label for="exampleEmail">Coordinates</Label>
+          </Col>
+          <Col>
+            <Input type="number" value={this.state.lng} onChange={this.handleInputChange} name="lng" placeholder="Longitude" />
+          </Col>
+          <Col>
+            <Input type="number" value={this.state.lat} onChange={this.handleInputChange} name="lat" placeholder="Latitude" />
+          </Col>
+        </Row>
+
+        <Row className="my-4">
+          <Col sm={3}>
+            <Label for="exampleEmail">Picture</Label>
+          </Col>
+          <Col>
+            <Input type="file" name="picture" onChange={this.handleFileChange} />
+          </Col>
+        </Row>
+
+        <Button className="my-4" color="danger" block onClick={this.addStreetArtAndRedirectToDetailPage}>
+          Add Street Art
+        </Button>
+
+      </Container>
+    )
+  }
+}
+
+```
 
 You can preview the page here: 
 ![Imgur](https://i.imgur.com/oeNcorX.png)
