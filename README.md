@@ -576,7 +576,7 @@ The Navbar contains the following links:
 ![Imgur](https://i.imgur.com/NHPUi5Y.png)
 
 
-### Iteration 11 | Frontend | Simple page `List`
+### Iteration 11 | Frontend | Simple page component `List`
 
 The goal of this iteration is to create a simple page "/list".
 
@@ -610,8 +610,20 @@ You can preview the page here:
 
 ![Imgur](https://i.imgur.com/m6J0OOb.png)
 
+
+### Next iterations
+- Iteration x | Frontend | Simple page component `StreetArtDetail`
+- Iteration x | Frontend | Add a map in `StreetArtDetail`
+- Iteration x | Frontend | Page component `NewStreetArt`
+- Iteration x | Frontend | Simple page component `Map`
+- Iteration x | Frontend | Change of signup and login
+- Iteration x | Frontend | Add of visits in `List`
+- Iteration x | Frontend | Add of visits in `StreetArtDetail`
+- Iteration x | Frontend | Add of visits in `Map`
+
+
+
 <!-- 
 ## TODO
 - Create a demo
 -->
-
