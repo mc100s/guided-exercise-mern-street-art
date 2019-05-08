@@ -12,7 +12,7 @@ export default class List extends Component {
   }
   renderGoogleMapLink(streetArt) {
     let [lng,lat] = streetArt.location.coordinates
-    return <a href={`https://www.google.com/maps/dir//${lat},${lng}/@${lat},${lng},15z`} target="_blank">{lng},{lat}</a>
+    return <a href={`https://www.google.com/maps/dir//${lat},${lng}/@${lat},${lng},15z`} target="_blank" rel="noopener noreferrer">{lng},{lat}</a>
   }
   render() {
     return (

@@ -635,6 +635,82 @@ You can preview the page here:
 **BONUS**: Display the picture fullscreen when the user clicks on the picture and go back to the original view when the user clicks again.
 
 
+### Iteration 13 | Frontend | Add a map in `StreetArtDetail`
+
+We are going to include a map from Mapbox for this iteration. For this, you need to create an account on [Mapbox](https://mapbox.com) and then follow the next instructions.
+
+```sh
+$ cd client
+$ npm install mapbox-gl
+```
+
+```scss
+// client/src/index.scss
+@import '../node_modules/mapbox-gl/src/css/mapbox-gl.css';
+```
+
+```js
+// client/src/components/pages/StreetArtDetail.jsx
+// ...
+
+import mapboxgl from 'mapbox-gl/dist/mapbox-gl' // NEW
+
+// Inform your Mapbox token (https://www.mapbox.com/account/)
+mapboxgl.accessToken = 'YourToken' // NEW
+
+
+export default class StreetArtDetail extends Component {
+  constructor(props) {
+    super(props)
+    // ...
+
+    this.mapRef = React.createRef() // NEW
+    this.map = null // NEW
+    this.marker = null // NEW
+  }
+  initMap(lng, lat) { // NEW METHOD
+    // Embed the map where "this.mapRef" is defined in the render
+    this.map = new mapboxgl.Map({
+      container: this.mapRef.current,
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [lng, lat],
+      zoom: 10
+    })
+
+    // Add zoom control on the top right corner
+    this.map.addControl(new mapboxgl.NavigationControl())
+
+    // Create a marker on the map with the coordinates ([lng, lat])
+    this.marker = new mapboxgl.Marker({ color: 'red' })
+      .setLngLat([lng, lat])
+      .addTo(this.map)
+  }
+  render() {
+    // ...
+      <div ref={this.mapRef} style={{height: 400}}></div> {/* NEW */}
+    // ...
+  }
+  componentDidMount() {
+    api.getStreetArt(this.props.match.params.streetArtId)
+      .then(streetArt => {
+        this.setState({
+          streetArt: streetArt
+        })
+        let [lng,lat] = streetArt.location.coordinates // NEW
+        this.initMap(lng,lat) // NEW
+      })
+  }
+}
+```
+
+You can preview the page here: 
+![Imgur](https://i.imgur.com/IuZMhjF.jpg)
+
+**NOTE**: If the map is only half displayed, change some CSS to make sure your map is not in a `text-align: center`.
+
+
+
+
 ### Next iterations
 - Iteration x | Frontend | Add a map in `StreetArtDetail`
 - Iteration x | Frontend | Page component `NewStreetArt`
