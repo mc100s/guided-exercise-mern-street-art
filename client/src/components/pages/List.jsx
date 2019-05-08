@@ -17,7 +17,7 @@ export default class List extends Component {
   render() {
     return (
       <Container>
-        <h1 className="mb-4">List of Street Arts</h1>
+        <h1>List of Street Arts</h1>
         {!this.state.streetArts && <div>Loading...</div>}
         {this.state.streetArts && <Table hover className="street-art-list">
           <thead>

@@ -77,9 +77,9 @@ export default {
       .catch(errHandler)
   },
 
-  addCountry(body) {
+  addStreetArt(body) {
     return service
-      .post('/countries', body)
+      .post('/street-art', body)
       .then(res => res.data)
       .catch(errHandler)
   },

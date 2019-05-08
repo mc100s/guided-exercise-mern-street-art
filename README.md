@@ -709,6 +709,16 @@ You can preview the page here:
 **NOTE**: If the map is only half displayed, change some CSS to make sure your map is not in a `text-align: center`.
 
 
+### Iteration 14 | Frontend | Page component `NewStreetArt`
+
+For this iteration, you need to:
+- Create a method `addStreetArt(body)` in `client/src/api.js`
+- Create a component `NewStreetArt` saved in `client/src/components/pages/NewStreetArt.jsx`
+- Update `client/src/components/App.jsx` to include a new `<Route />`
+
+You can preview the page here: 
+![Imgur](https://i.imgur.com/oeNcorX.png)
+
 
 
 ### Next iterations
@@ -717,6 +727,7 @@ You can preview the page here:
 - Iteration x | Frontend | Add of visits in `List`
 - Iteration x | Frontend | Add of visits in `StreetArtDetail`
 - Iteration x | Frontend | Add of visits in `Map`
+- Iteration x | Deploy 🚀
 
 
 
